@@ -1,0 +1,8 @@
+body {
+    padding: 20px;
+}
+
+.outOfStock {
+	color: red;
+	text-decoration:line-through;
+}
