@@ -123,26 +123,16 @@ var CheckboxFieldGroup = React.createClass({
   }
 });
 
-var defaults = {
-  name: "mikeyCheck",
-  checkboxes: {
-    MyCheckboxField: {
-      label: "My Checkbox Field",
-      checked: false
-    },
-    MyOtherCheckboxField: {
-      label: "My Other Checkbox Field",
-      checked: false
-    },
-    YetAnotherCheckboxField: {
-      label: "Yet Another Checkbox Field",
-      checked: true
-    },
-    YesItsAFourthCheckboxField: {
-      label: "Yes, it's a fourth checkbox field",
-      checked: false
-    }
-  }
-};
 
-React.renderComponent(<CheckboxFieldGroup defaultValues={defaults} />, document.getElementById("main"));
+React.renderComponent(<CheckboxFieldGroup defaultValues={firstCheckBoxList.first()} />, document.getElementById("main"));
+
+
+
+
+
+
+
+
+
+
+
