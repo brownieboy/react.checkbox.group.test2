@@ -16,8 +16,8 @@ var CheckboxListModel = Backbone.Model.extend({
         questions: []
     },
     initialize: function(initObj) {
+        this.set("questions", new CheckboxQuestionsColl(initObj.questions));
         console.log("CheckboxListModel.initialize()");
-        this.questions = new CheckboxQuestionsColl(initObj.questions);
     }
 });
 

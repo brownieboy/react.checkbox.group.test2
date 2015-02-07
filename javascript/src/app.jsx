@@ -56,7 +56,8 @@ var CheckboxFieldGroup = React.createClass({
     //          MyOtherChecboxField: false
     //          YetAnotherCheckboxField: true
     var states = {};
-    _.map(this.props.defaultValues.get("questions"), function (choice, key) {
+    var tempObj = this.props.defaultValues.get("questions");
+    this.props.defaultValues.get("questions").each(function (choice, key) {
       states[key] = choice.get("checked");
     });
     return states;
@@ -72,14 +73,17 @@ var CheckboxFieldGroup = React.createClass({
     // in the CheckboxField - i.e. key={this.props.key}.  React just seems to ignore it if you do this,
     // in fact.  When a Key prop is passed, you can see how it gets embedded in the data-reactid for all
     // of the CheckboxField component's rendered HTML elements.
-    return _.map(this.props.defaultValues.checkboxes, function (choice, key) {
+
+    // return _.map(this.props.defaultValues.get("questions"), function (choice, key) {
+    return this.props.defaultValues.get("questions").each(function (choice, key) {
+
       return CheckboxField({
         key: key,
         values: {
-          name: that.props.defaultValues.name,
+          name: that.props.defaultValues.get("name"),
           value: key,
-          label: choice.label,
-          id: choice.id,
+          label: choice.get("label"),
+          id: choice.get("id"),
           checked: that.state[key]
         },
         callBackOnChange: that.handleChange
@@ -88,6 +92,7 @@ var CheckboxFieldGroup = React.createClass({
 
   },
   render: function () {
+    var data = this.renderChoices();
     return (
       <form>
                 {this.renderChoices()}
