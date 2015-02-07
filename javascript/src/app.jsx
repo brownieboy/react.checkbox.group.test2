@@ -56,8 +56,8 @@ var CheckboxFieldGroup = React.createClass({
     //          MyOtherChecboxField: false
     //          YetAnotherCheckboxField: true
     var states = {};
-    _.map(this.props.defaultValues.checkboxes, function (choice, key) {
-      states[key] = choice.checked;
+    _.map(this.props.defaultValues.get("questions"), function (choice, key) {
+      states[key] = choice.get("checked");
     });
     return states;
   },
@@ -124,7 +124,9 @@ var CheckboxFieldGroup = React.createClass({
 });
 
 
-React.renderComponent(<CheckboxFieldGroup defaultValues={firstCheckBoxList.first()} />, document.getElementById("main"));
+React.render(<CheckboxFieldGroup defaultValues={firstCheckBoxList.first()} />, document.getElementById("main"));
+// React.render(<CheckboxFieldGroup defaultValues={defaults} />, document.getElementById("main"));
+
 
 
 

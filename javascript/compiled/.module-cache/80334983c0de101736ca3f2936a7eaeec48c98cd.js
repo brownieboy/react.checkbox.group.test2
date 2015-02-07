@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var CheckboxField = React.createClass({
+var CheckboxField = React.createClass({displayName: "CheckboxField",
   propTypes: {
     values: React.PropTypes.object.isRequired
   },
@@ -13,16 +13,16 @@ var CheckboxField = React.createClass({
   },
   render: function () {
     return (
-      <label htlmFor={this.props.values.id}>
-        <input type="checkbox"
-          name={this.props.values.name}
-          id={this.props.values.id}
-          value={this.props.values.value}
-          checked={this.props.values.checked}
-          onChange={this.handleChange} />
-                {this.props.values.label}
-        <br />
-      </label>
+      React.createElement("label", {htlmFor: this.props.values.id}, 
+        React.createElement("input", {type: "checkbox", 
+          name: this.props.values.name, 
+          id: this.props.values.id, 
+          value: this.props.values.value, 
+          checked: this.props.values.checked, 
+          onChange: this.handleChange}), 
+                this.props.values.label, 
+        React.createElement("br", null)
+      )
     );
   },
   handleChange: function (event) {
@@ -35,7 +35,7 @@ var CheckboxField = React.createClass({
   }
 });
 
-var CheckboxFieldGroup = React.createClass({
+var CheckboxFieldGroup = React.createClass({displayName: "CheckboxFieldGroup",
   propTypes: {
     defaultValues: React.PropTypes.object.isRequired
   },
@@ -56,8 +56,8 @@ var CheckboxFieldGroup = React.createClass({
     //          MyOtherChecboxField: false
     //          YetAnotherCheckboxField: true
     var states = {};
-    _.map(this.props.defaultValues.checkboxes, function (choice, key) {
-      states[key] = choice.checked;
+    _.map(this.props.defaultValues.get("questions"), function (choice, key) {
+      states[key] = choice.get("checked");
     });
     return states;
   },
@@ -89,9 +89,9 @@ var CheckboxFieldGroup = React.createClass({
   },
   render: function () {
     return (
-      <form>
-                {this.renderChoices()}
-      </form>
+      React.createElement("form", null, 
+                this.renderChoices()
+      )
     );
   },
   handleChange: function (componentChanged, newState) {
@@ -124,8 +124,8 @@ var CheckboxFieldGroup = React.createClass({
 });
 
 
-// React.render(<CheckboxFieldGroup defaultValues={firstCheckBoxList.first()} />, document.getElementById("main"));
-React.render(<CheckboxFieldGroup defaultValues={defaults} />, document.getElementById("main"));
+React.render(React.createElement(CheckboxFieldGroup, {defaultValues: firstCheckBoxList.first()}), document.getElementById("main"));
+// React.render(<CheckboxFieldGroup defaultValues={defaults} />, document.getElementById("main"));
 
 
 
