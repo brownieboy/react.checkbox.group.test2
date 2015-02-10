@@ -12,6 +12,7 @@ var CheckboxField = React.createClass({
     };
   },
   render: function () {
+    console.log("CheckboxField.render()");
     return (
       <label htlmFor={this.props.values.id}>
         <input type="checkbox"
@@ -20,7 +21,7 @@ var CheckboxField = React.createClass({
           value={this.props.values.value}
           checked={this.props.values.checked}
           onChange={this.handleChange} />
-                {this.props.values.label}
+          {this.props.values.label}
         <br />
       </label>
     );
@@ -56,8 +57,8 @@ var CheckboxFieldGroup = React.createClass({
     //          MyOtherChecboxField: false
     //          YetAnotherCheckboxField: true
     var states = {};
-    var tempObj = this.props.defaultValues.get("questions");
-    this.props.defaultValues.get("questions").each(function (choice, key) {
+    var dataToLoop = this.props.defaultValues.get("questions");
+    dataToLoop.each(function (choice, key) {
       states[key] = choice.get("checked");
     });
     return states;
@@ -75,19 +76,22 @@ var CheckboxFieldGroup = React.createClass({
     // of the CheckboxField component's rendered HTML elements.
 
     // return _.map(this.props.defaultValues.get("questions"), function (choice, key) {
-    return this.props.defaultValues.get("questions").each(function (choice, key) {
-
-      return CheckboxField({
-        key: key,
-        values: {
+    var dataToLoop = this.props.defaultValues.get("questions");
+    return dataToLoop.each(function (choice, key) {
+      console.log("loopy, key = " + key);
+      values = {
           name: that.props.defaultValues.get("name"),
           value: key,
           label: choice.get("label"),
           id: choice.get("id"),
           checked: that.state[key]
-        },
-        callBackOnChange: that.handleChange
-      });
+        };
+      return (
+        <CheckboxField
+          key={key}
+          values={values}
+          callBackOnChange={that.handleChange} />
+        );
     });
 
   },
@@ -95,7 +99,7 @@ var CheckboxFieldGroup = React.createClass({
     var data = this.renderChoices();
     return (
       <form>
-                {this.renderChoices()}
+        {data}
       </form>
     );
   },
@@ -129,6 +133,7 @@ var CheckboxFieldGroup = React.createClass({
 });
 
 
+var firstDataModel = firstCheckBoxList.first();
 React.render(<CheckboxFieldGroup defaultValues={firstCheckBoxList.first()} />, document.getElementById("main"));
 // React.render(<CheckboxFieldGroup defaultValues={defaults} />, document.getElementById("main"));
 

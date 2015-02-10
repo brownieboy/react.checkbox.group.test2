@@ -62,5 +62,7 @@ var defaults = [{
 
 
 var firstCheckBoxList = new CheckboxesListColl(defaults);
+var firstCheckBoxListJSONString = JSON.stringify(firstCheckBoxList);
+var firstCheckBoxListJSON = JSON.parse(firstCheckBoxListJSONString);
 console.log("done");
 
