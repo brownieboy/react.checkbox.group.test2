@@ -65,19 +65,9 @@ var CheckboxFieldGroup = React.createClass({
   },
   renderChoices: function () {
     var that = this; // Could also use .bind(this) on our map() function but that requires IE9+.
-
-    // Big ChingKang changes here too.  He maps through the passed in props checkboxes array, instead
-    // of (re) mapping through the new state like I was (very likely an anti-pattern).
-    // All of the props passed into CheckboxField are taken from the loop through of CheckboxFieldGroup's
-    // props.  Only the checked prop passed to CheckboxField is taken from CheckboxFieldGroup's state.
-    // As well as passing in values he adds the all important key.  NB: key doesn't have to be rendered
-    // in the CheckboxField - i.e. key={this.props.key}.  React just seems to ignore it if you do this,
-    // in fact.  When a Key prop is passed, you can see how it gets embedded in the data-reactid for all
-    // of the CheckboxField component's rendered HTML elements.
-
-    // return _.map(this.props.defaultValues.get("questions"), function (choice, key) {
-    var dataToLoop = this.props.defaultValues.get("questions");
-    return dataToLoop.each(function (choice, key) {
+    var collToLoop = this.props.defaultValues.get("questions");
+    var returnData = [];
+    collToLoop.each(function (choice, key) {
       console.log("loopy, key = " + key);
       values = {
           name: that.props.defaultValues.get("name"),
@@ -86,14 +76,14 @@ var CheckboxFieldGroup = React.createClass({
           id: choice.get("id"),
           checked: that.state[key]
         };
-      return (
+      returnData.push (
         <CheckboxField
           key={key}
           values={values}
           callBackOnChange={that.handleChange} />
         );
     });
-
+    return returnData;
   },
   render: function () {
     var data = this.renderChoices();
